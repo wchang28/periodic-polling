@@ -37,16 +37,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require("./");
+var request = require("superagent");
 var pp = _1.PeriodicPolling.get(function (pi) { return __awaiter(_this, void 0, void 0, function () {
+    var url, ret;
     return __generator(this, function (_a) {
-        return [2 /*return*/, 1];
+        switch (_a.label) {
+            case 0:
+                url = "https://api.ipify.org";
+                return [4 /*yield*/, request.get(url).query({ "format": "json" }).timeout(15000)];
+            case 1:
+                ret = _a.sent();
+                if (ret.status === 200 && ret.body && typeof ret.body.ip === "string" && ret.body.ip) {
+                    return [2 /*return*/, ret.body.ip];
+                }
+                else {
+                    throw "unable to determine my public ip address from " + url;
+                }
+                return [2 /*return*/];
+        }
     });
-}); }, 10);
+}); }, 30);
 pp.on("before-poll", function (pi) {
-    console.log("<before-poll>: pi=" + JSON.stringify(pi));
-}).on("polled", function (value, pi) {
-    console.log("<polled>: pi=" + JSON.stringify(pi) + ", value=" + JSON.stringify(value));
+    console.log("");
+    console.log(new Date().toISOString() + ": <before-poll>: pi=" + JSON.stringify(pi));
+}).on("polled", function (myIP, pi) {
+    console.log(new Date().toISOString() + ": <polled>: pi=" + JSON.stringify(pi) + ", myIP=" + JSON.stringify(myIP));
 }).on("error", function (err, pi) {
-    console.error("!!! <error>: pi=" + JSON.stringify(pi) + ", err=" + JSON.stringify(err));
+    console.error(new Date().toISOString() + ": !!! <error>: pi=" + JSON.stringify(pi) + ", err=" + JSON.stringify(err));
 }).start();
 //# sourceMappingURL=test.js.map

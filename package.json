@@ -16,6 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "^10.12.9",
+    "@types/superagent": "^3.8.4",
+    "superagent": "^4.0.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
