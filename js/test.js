@@ -38,7 +38,9 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = require("./");
 var request = require("superagent");
-var pp = _1.PeriodicPolling.get(function (pi) { return __awaiter(_this, void 0, void 0, function () {
+// get my public ip address from ipify.org
+// reference: https://www.ipify.org/
+var getMyPublicIP = function (pi) { return __awaiter(_this, void 0, void 0, function () {
     var url, ret;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -56,7 +58,8 @@ var pp = _1.PeriodicPolling.get(function (pi) { return __awaiter(_this, void 0, 
                 return [2 /*return*/];
         }
     });
-}); }, 30);
+}); };
+var pp = _1.PeriodicPolling.get(getMyPublicIP, 30); // periodic poll my public ip address in 30 sec interval
 pp.on("before-poll", function (pi) {
     console.log("");
     console.log(new Date().toISOString() + ": <before-poll>: pi=" + JSON.stringify(pi));

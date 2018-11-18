@@ -1,7 +1,9 @@
 import {PeriodicPolling, PollInfo} from "./";
 import * as request from "superagent";
 
-let pp = PeriodicPolling.get(async (pi: PollInfo) => {
+// get my public ip address from ipify.org
+// reference: https://www.ipify.org/
+let getMyPublicIP = async (pi: PollInfo) => {
     let url = "https://api.ipify.org";
     let ret = await request.get(url).query({"format": "json"}).timeout(15000);
     if (ret.status === 200 && ret.body && typeof ret.body.ip === "string" && ret.body.ip) {
@@ -9,7 +11,9 @@ let pp = PeriodicPolling.get(async (pi: PollInfo) => {
     } else {
         throw `unable to determine my public ip address from ${url}`;
     }
-}, 30);
+};
+
+let pp = PeriodicPolling.get(getMyPublicIP, 30);    // periodic poll my public ip address in 30 sec interval
 
 pp.on("before-poll", (pi: PollInfo) => {
     console.log("");
