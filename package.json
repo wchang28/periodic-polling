@@ -5,7 +5,8 @@
   "main": "/js/index.js",
   "typings": "./js/index.d.ts",
   "scripts": {
-    "transpile": "tsc"
+    "transpile": "tsc",
+    "test": "node ./js/test.js"
   },
   "repository": {
     "type": "git",
