@@ -2,7 +2,7 @@
   "name": "periodic-polling",
   "version": "1.0.0",
   "description": "Periodic Polling Module",
-  "main": "/js/index.js",
+  "main": "./js/index.js",
   "typings": "./js/index.d.ts",
   "scripts": {
     "transpile": "tsc",
